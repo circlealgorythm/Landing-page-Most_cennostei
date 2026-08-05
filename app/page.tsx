@@ -3,6 +3,7 @@ import Image from "next/image";
 const BOT_URL = "https://t.me/Aisu_Kam_bot?start=vnutrennyaya_opora";
 const APPLICATION_ANCHOR = "#signup";
 const SIGNUP_URL = "/zapis";
+const APPLICATION_NOTE = "При оставлении заявки вы сможете подписаться на чат-бот, где узнаете подробнее о программе и получите бесплатный видео-шаг о том, через какие механизмы работает Ведический коучинг. Также мы с вами обязательно свяжемся, чтобы разобраться, подойдёт ли вам тренинг и сможет ли он решить ваши задачи.";
 
 const signals = [
   ["Вы тревожитесь, когда ответ, деньги или признание задерживаются.", "Но часто бывает, что нужное вам как раз задерживается, словно провоцируя на тревогу и стресс."],
@@ -35,6 +36,7 @@ const outcomes = [
 ];
 
 const ArrowIcon = () => <span className="arrow-icon" aria-hidden="true" />;
+const ApplicationNote = () => <p className="application-note">{APPLICATION_NOTE}</p>;
 
 export default function Home() {
   return (
@@ -50,7 +52,7 @@ export default function Home() {
           <a href="#format">Формат</a>
           <a href="#questions">Вопросы</a>
         </nav>
-        <a className="top-cta" href={APPLICATION_ANCHOR}>Оставить заявку <ArrowIcon /></a>
+        <a className="top-cta" href={APPLICATION_ANCHOR} title={APPLICATION_NOTE}>Оставить заявку <ArrowIcon /></a>
       </header>
 
       <section className="hero" id="start">
@@ -58,7 +60,7 @@ export default function Home() {
           <h1>Мост <em>ценностей</em></h1>
           <p className="hero-subtitle">От зависимости от результата к свободе действовать и осознанности в принятии решений.</p>
           <div className="hero-actions">
-            <a className="button primary" href={APPLICATION_ANCHOR}>Оставить заявку <ArrowIcon /></a>
+            <div className="application-action"><a className="button primary" href={APPLICATION_ANCHOR}>Оставить заявку <ArrowIcon /></a><ApplicationNote /></div>
             <a className="button quiet" href="#program">Посмотреть программу</a>
           </div>
           <div className="hero-details" aria-label="Ключевые детали программы">
@@ -153,7 +155,7 @@ export default function Home() {
         <div className="format-card">
           <h2>Камерная группа. <em>Бережная глубина.</em></h2>
           <div className="format-points"><p><b>8-12 участников</b><span>Место для личного внимания</span></p><p><b>Круги и пары</b><span>Без непрошеных советов</span></p><p><b>Личные беседы</b><span>Уточнение запроса и шага</span></p><p><b>21 день</b><span>Спокойная интеграция после</span></p></div>
-          <a className="button primary" href={APPLICATION_ANCHOR}>Оставить заявку <ArrowIcon /></a>
+          <div className="application-action"><a className="button primary" href={APPLICATION_ANCHOR}>Оставить заявку <ArrowIcon /></a><ApplicationNote /></div>
         </div>
         <aside className="safety-note"><div className="safety-mark">!</div><div><strong>Важно</strong><p>Участие добровольное. Не нужно рассказывать больше, чем вы готовы. Программа не заменяет медицинскую или психотерапевтическую помощь, не является религиозной деятельностью и не обещает конкретных результатов в деньгах, отношениях или здоровье.</p></div></aside>
       </section>
@@ -171,12 +173,12 @@ export default function Home() {
       <section className="final-cta" id="signup">
         <div className="final-orbit" aria-hidden="true" />
         <Image className="final-logo" src="/logo.jpg" width={240} height={240} alt="" unoptimized />
-        <div><h2>Услышать, на что вы действительно <em>можете опереться.</em></h2><p>Оставьте заявку, и мы свяжемся с вами, обсудим, подойдёт ли вам этот тренинг, и расскажем его детали. Для дальнейшей коммуникации понадобится подписаться на чат-бот в Telegram или в VK.</p><div className="final-meta">Москва, 3-5 сентября 2026</div><a className="button gold" href={SIGNUP_URL}>Оставить заявку <ArrowIcon /></a></div>
+        <div><h2>Услышать, на что вы действительно <em>можете опереться.</em></h2><p>Оставьте заявку, и мы свяжемся с вами, обсудим, подойдёт ли вам этот тренинг, и расскажем его детали. Для дальнейшей коммуникации понадобится подписаться на чат-бот в Telegram или в VK.</p><div className="final-meta">Москва, 3-5 сентября 2026</div><div className="application-action"><a className="button gold" href={SIGNUP_URL}>Оставить заявку <ArrowIcon /></a><ApplicationNote /></div></div>
       </section>
 
       <footer><a className="footer-brand" href="#start"><Image src="/logo.jpg" width={36} height={36} alt="" unoptimized /><span><b>Айсу Кам</b><small>© 2026, Мост ценностей</small></span></a><a href="https://aisukam.ru" target="_blank" rel="noreferrer">aisukam.ru <ArrowIcon /></a></footer>
 
-      <a className="mobile-cta" href={APPLICATION_ANCHOR}><span>Оставить заявку</span><ArrowIcon /></a>
+      <a className="mobile-cta" href={APPLICATION_ANCHOR} title={APPLICATION_NOTE}><span>Оставить заявку</span><ArrowIcon /></a>
     </main>
   );
 }

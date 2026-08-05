@@ -85,6 +85,8 @@ h1 em, h2 em { color: var(--amber); font-weight: 500; font-style: italic; line-h
 h1 em { display: block; margin-left: clamp(28px, 7vw, 110px); padding-bottom: .06em; }
 .hero-subtitle { max-width: 680px; margin: 31px 0 0; color: var(--deep); font-family: var(--font-cormorant), Georgia, serif; font-size: clamp(22px, 2.05vw, 30px); line-height: 1.12; letter-spacing: -.018em; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 11px; margin-top: 31px; }
+.application-action { display: flex; flex-direction: column; align-items: flex-start; }
+.application-note { max-width: 390px; margin: 13px 0 0; color: #68776e; font-size: 11px; line-height: 1.55; }
 .button { min-height: 52px; padding: 13px 22px; display: inline-flex; align-items: center; justify-content: center; gap: 23px; border: 1px solid transparent; border-radius: 999px; font-size: 13px; font-weight: 650; white-space: nowrap; transition: color 180ms var(--ease-out), background 180ms var(--ease-out), border-color 180ms var(--ease-out), transform 140ms var(--ease-out), box-shadow 180ms var(--ease-out); }
 .button.primary { color: var(--white); background: var(--deep); box-shadow: 0 14px 32px rgba(12, 44, 33, .16); }
 .button.quiet { color: #405248; border-color: var(--line-strong); background: rgba(255, 255, 255, .38); }
@@ -176,6 +178,7 @@ h2 { max-width: 900px; margin: 0 0 28px; color: var(--deep); font-family: var(--
 .format { padding-top: 0; padding-bottom: 0; display: grid; grid-template-columns: 1.18fr .82fr; background: var(--surface-2); }
 .format-card { padding: clamp(72px, 8vw, 116px) clamp(38px, 8vw, 112px); }
 .format-card h2 { max-width: 680px; }
+.format-card .application-note { max-width: 430px; }
 .format-points { margin: 44px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
 .format-points p { margin: 0; display: flex; flex-direction: column; gap: 6px; }
 .format-points b { color: #946518; font-family: var(--font-cormorant), serif; font-size: 23px; font-weight: 600; }
@@ -216,6 +219,7 @@ details p { max-width: 760px; margin: 0; padding: 0 0 27px; color: #56685e; font
 .final-cta > div:last-child { max-width: 780px; position: relative; z-index: 2; }
 .final-cta h2 { color: var(--white); font-size: clamp(50px, 6vw, 86px); }
 .final-cta > div > p { max-width: 560px; color: #c2d1c7; font-size: 15px; line-height: 1.7; }
+.final-cta .application-note { max-width: 560px; color: #c2d1c7; }
 .final-meta { margin: 28px 0 0; color: var(--amber-soft); font-family: var(--font-cormorant), serif; font-size: 21px; font-variant-numeric: tabular-nums; }
 .button.gold { margin-top: 25px; color: var(--deep); background: var(--amber-soft); box-shadow: 0 14px 34px rgba(4, 23, 16, .24); }
 .final-logo { width: min(27vw, 330px); border-radius: 50%; mix-blend-mode: screen; opacity: .85; position: relative; z-index: 2; }
@@ -278,6 +282,7 @@ footer > a:last-child { display: inline-flex; align-items: center; gap: 10px; co
   h1 em { margin-left: 14vw; }
   .hero-subtitle { margin-top: 21px; font-size: 24px; }
   .hero-actions { margin-top: 23px; }
+  .hero-actions .application-action { width: 100%; }
   .hero-actions .button { width: 100%; }
   .hero-actions .quiet { display: none; }
   .hero-details { margin-top: 29px; }
