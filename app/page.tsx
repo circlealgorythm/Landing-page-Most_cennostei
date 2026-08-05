@@ -4,6 +4,12 @@ const BOT_URL = "https://t.me/Aisu_Kam_bot?start=vnutrennyaya_opora";
 const APPLICATION_ANCHOR = "#signup";
 const SIGNUP_URL = "/zapis";
 const APPLICATION_NOTE = "При оставлении заявки вы сможете подписаться на чат-бот, где узнаете подробнее о программе и получите бесплатный видео-шаг о том, через какие механизмы работает Ведический коучинг, а также сможете пройти несколько простых практик для самодиагностики своей внутренней опоры и ресурса. Также мы с вами обязательно свяжемся, чтобы разобраться, подойдёт ли вам тренинг и сможет ли он решить ваши задачи.";
+const APPLICATION_BENEFITS = [
+  "Подписаться на чат-бот и узнать подробнее о программе.",
+  "Получить бесплатный видео-шаг о механизмах работы Ведического коучинга.",
+  "Пройти несколько простых практик для самодиагностики внутренней опоры и ресурса.",
+  "Получить нашу обратную связь: мы свяжемся, чтобы понять, подойдёт ли вам тренинг и сможет ли он решить ваши задачи.",
+];
 
 const signals = [
   ["Вы тревожитесь, когда ответ, деньги или признание задерживаются.", "Но часто бывает, что нужное вам как раз задерживается, словно провоцируя на тревогу и стресс."],
@@ -36,7 +42,12 @@ const outcomes = [
 ];
 
 const ArrowIcon = () => <span className="arrow-icon" aria-hidden="true" />;
-const ApplicationNote = () => <p className="application-note">{APPLICATION_NOTE}</p>;
+const ApplicationNote = () => (
+  <div className="application-note">
+    <strong>После заявки вы сможете:</strong>
+    <ul>{APPLICATION_BENEFITS.map((benefit) => <li key={benefit}>{benefit}</li>)}</ul>
+  </div>
+);
 
 export default function Home() {
   return (
