@@ -46,6 +46,7 @@ const ApplicationNote = () => (
   <div className="application-note">
     <p className="application-note-lead">Оставьте заявку, и мы свяжемся с вами, обсудим, подойдёт ли вам этот тренинг, и расскажем его детали.</p>
     <p className="application-note-highlight">Для дальнейшей коммуникации <strong>понадобится подписаться на чат-бот в Telegram или в VK.</strong></p>
+    <p className="application-note-form">Все кнопки «Оставить заявку» в итоге ведут на единую форму записи.</p>
     <strong className="application-note-title">После заявки вы также сможете:</strong>
     <ul>{APPLICATION_BENEFITS.map((benefit) => <li key={benefit}>{benefit}</li>)}</ul>
   </div>

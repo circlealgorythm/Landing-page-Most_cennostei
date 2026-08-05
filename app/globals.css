@@ -91,6 +91,7 @@ h1 em { display: block; margin-left: clamp(28px, 7vw, 110px); padding-bottom: .0
 .application-note-lead { margin: 0; color: var(--deep); font-size: 16px; line-height: 1.5; }
 .application-note-highlight { margin: 14px 0 0; padding: 11px 13px; color: #704b0f; background: var(--amber-pale); border: 1px solid rgba(197, 138, 34, .3); border-radius: 9px; font-size: 15px; line-height: 1.45; }
 .application-note-highlight strong { display: inline; color: #704b0f; font-family: inherit; font-size: inherit; line-height: inherit; }
+.application-note-form { margin: 13px 0 0; color: #66766d; font-size: 13px; font-weight: 650; line-height: 1.45; }
 .application-note-title { margin-top: 17px; font-size: 19px !important; }
 .application-note ul { margin: 12px 0 0; padding: 0; display: grid; gap: 8px; list-style: none; }
 .application-note li { padding-left: 21px; position: relative; }
@@ -232,6 +233,7 @@ details p { max-width: 760px; margin: 0; padding: 0 0 27px; color: #56685e; font
 .final-cta .application-note-lead { color: #f0f4ec; }
 .final-cta .application-note-highlight { color: #f6df9e; background: rgba(232, 198, 119, .16); border-color: rgba(232, 198, 119, .4); }
 .final-cta .application-note-highlight strong { color: #f6df9e; }
+.final-cta .application-note-form { color: #d2ded5; }
 .final-meta { margin: 28px 0 0; color: var(--amber-soft); font-family: var(--font-cormorant), serif; font-size: 21px; font-variant-numeric: tabular-nums; }
 .button.gold { margin-top: 25px; color: var(--deep); background: var(--amber-soft); box-shadow: 0 14px 34px rgba(4, 23, 16, .24); }
 .final-logo { width: min(27vw, 330px); border-radius: 50%; mix-blend-mode: screen; opacity: .85; position: relative; z-index: 2; }
