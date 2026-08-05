@@ -3,7 +3,7 @@ import Image from "next/image";
 const BOT_URL = "https://t.me/Aisu_Kam_bot?start=vnutrennyaya_opora";
 const APPLICATION_ANCHOR = "#signup";
 const SIGNUP_URL = "/zapis";
-const APPLICATION_NOTE = "При оставлении заявки вы сможете подписаться на чат-бот, где узнаете подробнее о программе и получите бесплатный видео-шаг о том, через какие механизмы работает Ведический коучинг, а также сможете пройти несколько простых практик для самодиагностики своей внутренней опоры и ресурса. Также мы с вами обязательно свяжемся, чтобы разобраться, подойдёт ли вам тренинг и сможет ли он решить ваши задачи.";
+const APPLICATION_NOTE = "Оставьте заявку, и мы свяжемся с вами, обсудим, подойдёт ли вам этот тренинг, и расскажем его детали. Для дальнейшей коммуникации понадобится подписаться на чат-бот в Telegram или в VK.";
 const APPLICATION_BENEFITS = [
   "Подписаться на чат-бот и узнать подробнее о программе.",
   "Получить бесплатный видео-шаг о механизмах работы Ведического коучинга.",
@@ -44,7 +44,9 @@ const outcomes = [
 const ArrowIcon = () => <span className="arrow-icon" aria-hidden="true" />;
 const ApplicationNote = () => (
   <div className="application-note">
-    <strong>После заявки вы сможете:</strong>
+    <p className="application-note-lead">Оставьте заявку, и мы свяжемся с вами, обсудим, подойдёт ли вам этот тренинг, и расскажем его детали.</p>
+    <p className="application-note-highlight">Для дальнейшей коммуникации <strong>понадобится подписаться на чат-бот в Telegram или в VK.</strong></p>
+    <strong className="application-note-title">После заявки вы также сможете:</strong>
     <ul>{APPLICATION_BENEFITS.map((benefit) => <li key={benefit}>{benefit}</li>)}</ul>
   </div>
 );
@@ -184,7 +186,7 @@ export default function Home() {
       <section className="final-cta" id="signup">
         <div className="final-orbit" aria-hidden="true" />
         <Image className="final-logo" src="/logo.jpg" width={240} height={240} alt="" unoptimized />
-        <div><h2>Услышать, на что вы действительно <em>можете опереться.</em></h2><p>Оставьте заявку, и мы свяжемся с вами, обсудим, подойдёт ли вам этот тренинг, и расскажем его детали. Для дальнейшей коммуникации понадобится подписаться на чат-бот в Telegram или в VK.</p><div className="final-meta">Москва, 3-5 сентября 2026</div><div className="application-action"><a className="button gold" href={SIGNUP_URL}>Оставить заявку <ArrowIcon /></a><ApplicationNote /></div></div>
+        <div><h2>Услышать, на что вы действительно <em>можете опереться.</em></h2><p>Первый шаг — оставить заявку и спокойно обсудить, подходит ли вам этот тренинг.</p><div className="final-meta">Москва, 3-5 сентября 2026</div><div className="application-action"><a className="button gold" href={SIGNUP_URL}>Оставить заявку <ArrowIcon /></a><ApplicationNote /></div></div>
       </section>
 
       <footer><a className="footer-brand" href="#start"><Image src="/logo.jpg" width={36} height={36} alt="" unoptimized /><span><b>Айсу Кам</b><small>© 2026, Мост ценностей</small></span></a><a href="https://aisukam.ru" target="_blank" rel="noreferrer">aisukam.ru <ArrowIcon /></a></footer>
