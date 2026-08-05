@@ -18,25 +18,25 @@ const manrope = Manrope({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://vnutrennyaya-opora.circlealgorythm.chatgpt.site"),
-  title: "Внутренняя опора, офлайн-программа Айсу Кам",
-  description: "Трёхдневная офлайн-программа в Москве: от зависимости от результата к свободе действовать. 3-5 сентября 2026.",
+  title: "Мост ценностей, офлайн-программа Айсу Кам",
+  description: "Трёхдневная офлайн-программа в Москве: от зависимости от результата к свободе действовать и осознанности в принятии решений. 3-5 сентября 2026.",
   icons: {
     icon: [{ url: "/favicon.ico", type: "image/x-icon" }],
     shortcut: "/favicon.ico",
     apple: "/logo.jpg",
   },
   openGraph: {
-    title: "Внутренняя опора",
-    description: "От зависимости от результата к свободе действовать. Москва, 3-5 сентября 2026.",
+    title: "Мост ценностей",
+    description: "От зависимости от результата к свободе действовать и осознанности в принятии решений. Москва, 3-5 сентября 2026.",
     url: "/",
-    siteName: "Внутренняя опора · Айсу Кам",
+    siteName: "Мост ценностей · Айсу Кам",
     locale: "ru_RU",
     type: "website",
-    images: [{ url: "/og.png", width: 1733, height: 907, alt: "Внутренняя опора, Москва, 3-5 сентября 2026" }],
+    images: [{ url: "/og.png", width: 1733, height: 907, alt: "Мост ценностей, Москва, 3-5 сентября 2026" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Внутренняя опора",
+    title: "Мост ценностей",
     description: "Офлайн-программа Айсу Кам. Москва, 3-5 сентября 2026.",
     images: ["/og.png"],
   },
