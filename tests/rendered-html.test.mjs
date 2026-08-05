@@ -28,6 +28,6 @@ test("renders the finished Russian landing page metadata", async () => {
   );
   const html = await response.text();
   assert.match(html, /<html[^>]*\blang=["']ru["']/i);
-  assert.match(html, /<title>Внутренняя опора — офлайн-программа Айсу Кам<\/title>/i);
+  assert.match(html, /<title>Внутренняя опора, офлайн-программа Айсу Кам<\/title>/i);
   assert.doesNotMatch(html, /codex-preview/i);
 });
