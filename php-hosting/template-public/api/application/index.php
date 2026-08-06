@@ -74,6 +74,7 @@ try {
     }
     $funnelhubPayload = json_decode($funnelhubBody, true);
     $telegramUrl = is_array($funnelhubPayload) ? (string) ($funnelhubPayload['telegram_url'] ?? '') : '';
+    $vkUrl = is_array($funnelhubPayload) ? (string) ($funnelhubPayload['vk_url'] ?? '') : '';
     $telegramParts = parse_url($telegramUrl);
     if (($telegramParts['scheme'] ?? '') !== 'https' || ($telegramParts['host'] ?? '') !== 't.me') {
         throw new RuntimeException('Inbox application response has no safe Telegram link');
@@ -85,6 +86,18 @@ try {
         'httponly' => false,
         'samesite' => 'Lax',
     ]);
+    if ($vkUrl !== '') {
+        $vkParts = parse_url($vkUrl);
+        if (($vkParts['scheme'] ?? '') !== 'https' || ($vkParts['host'] ?? '') !== 'vk.me') {
+            throw new RuntimeException('Inbox application response has an unsafe VK link');
+        }
+        setcookie('most_tsennostey_vk_url', $vkUrl, [
+            'path' => '/',
+            'secure' => true,
+            'httponly' => false,
+            'samesite' => 'Lax',
+        ]);
+    }
     echo json_encode(['ok' => true]);
 } catch (Throwable $exception) {
     error_log('Application request error: ' . $exception->getMessage());

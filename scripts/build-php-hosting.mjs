@@ -61,23 +61,29 @@ const productionFormScript = `(() => {
 
 const afterApplicationScript = `(() => {
   if (!/^\\/posle-zayavki\\/?$/.test(location.pathname)) return;
-  const prefix = 'most_tsennostey_telegram_url=';
-  const cookie = document.cookie.split('; ').find((item) => item.startsWith(prefix));
-  if (!cookie) return;
-  document.cookie = 'most_tsennostey_telegram_url=; Max-Age=0; path=/; Secure; SameSite=Lax';
-  let telegramUrl = '';
-  try { telegramUrl = decodeURIComponent(cookie.slice(prefix.length)); } catch { return; }
-  try {
-    const parsed = new URL(telegramUrl);
-    if (parsed.protocol !== 'https:' || parsed.hostname !== 't.me') return;
-  } catch { return; }
-  const option = document.querySelector('.bot-options .bot-option');
-  if (!(option instanceof HTMLElement)) return;
-  const link = document.createElement('a');
-  link.className = option.className;
-  link.href = telegramUrl;
-  link.innerHTML = '<span class="bot-kind">Telegram</span><strong>Открыть Telegram-бота</strong><p>Нажмите «Начать», чтобы получить материалы.</p>';
-  option.replaceWith(link);
+  const readSafeCookieUrl = (name, host) => {
+    const prefix = name + '=';
+    const cookie = document.cookie.split('; ').find((item) => item.startsWith(prefix));
+    if (!cookie) return '';
+    document.cookie = name + '=; Max-Age=0; path=/; Secure; SameSite=Lax';
+    try {
+      const url = decodeURIComponent(cookie.slice(prefix.length));
+      const parsed = new URL(url);
+      return parsed.protocol === 'https:' && parsed.hostname === host ? url : '';
+    } catch { return ''; }
+  };
+  const replaceOption = (index, url, kind, title, description) => {
+    if (!url) return;
+    const option = document.querySelectorAll('.bot-options .bot-option')[index];
+    if (!(option instanceof HTMLElement)) return;
+    const link = document.createElement('a');
+    link.className = option.className;
+    link.href = url;
+    link.innerHTML = '<span class="bot-kind">' + kind + '</span><strong>' + title + '</strong><p>' + description + '</p>';
+    option.replaceWith(link);
+  };
+  replaceOption(0, readSafeCookieUrl('most_tsennostey_telegram_url', 't.me'), 'Telegram', 'Открыть Telegram-бота', 'Нажмите «Начать», чтобы получить материалы.');
+  replaceOption(1, readSafeCookieUrl('most_tsennostey_vk_url', 'vk.me'), 'VK', 'Открыть VK-бота', 'Разрешите сообщения от сообщества, чтобы получить материалы.');
 })();`;
 
 const phpStyles = `.dialog-backdrop[hidden]{display:none}.dialog-backdrop{position:fixed!important;z-index:100;inset:0;padding:24px;display:grid;place-items:center;background:rgba(6,24,17,.64);backdrop-filter:blur(8px)}.application-dialog{width:min(100%,580px);max-height:min(800px,calc(100dvh - 48px));padding:clamp(30px,5vw,50px);overflow-y:auto;position:relative;color:var(--deep);background:var(--surface);border:1px solid rgba(232,198,119,.52);border-radius:20px;box-shadow:0 32px 100px rgba(0,0,0,.3)}.application-dialog h2{margin:9px 0 0;font-size:clamp(46px,8vw,66px)}.dialog-close{width:38px;height:38px;display:grid;place-items:center;position:absolute;top:17px;right:17px;color:var(--deep);background:transparent;border:1px solid var(--line-strong);border-radius:50%;cursor:pointer;font-size:28px;line-height:1}.dialog-lead{max-width:430px;margin:20px 0 28px;color:var(--muted);font-size:15px;line-height:1.65}.dialog-form,.field{display:grid;gap:17px}.field{gap:7px}.field label{color:var(--deep);font-size:13px;font-weight:700}.field input{width:100%;min-height:52px;padding:13px 15px;color:var(--deep);background:var(--white);border:1px solid var(--line-strong);border-radius:9px;font:inherit;font-size:16px}.field input:focus{outline:2px solid var(--amber);outline-offset:2px}.form-error{margin:0;padding:10px 12px;color:#9d3d2e;background:#f7e4df;border-radius:8px;font-size:12px}.form-submit{width:100%;margin-top:4px;cursor:pointer}.form-submit:disabled{opacity:.68;cursor:wait}.form-consent{margin:0;color:#6b786f;font-size:11px;line-height:1.5}@media(max-width:720px){.dialog-backdrop{padding:12px;align-items:end}.application-dialog{max-height:calc(100dvh - 24px);padding:32px 22px 25px;border-radius:16px}.application-dialog h2{font-size:49px}}`;
