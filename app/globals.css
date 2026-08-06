@@ -181,7 +181,7 @@ h2 { max-width: 900px; margin: 0 0 28px; color: var(--deep); font-family: var(--
 .practice h3 { max-width: 390px; margin: 0 0 13px; color: var(--deep); font-family: var(--font-cormorant), serif; font-size: 29px; font-weight: 600; line-height: 1.04; }
 .practice p { max-width: 440px; margin: 0; color: #4d6256; font-size: 17px; letter-spacing: -.012em; line-height: 1.58; }
 .practice-1 { grid-column: span 7; }
-.practice-2 { grid-column: span 5; min-height: 265px; background-image: linear-gradient(90deg, rgba(238, 241, 234, .42), rgba(238, 241, 234, .8)), url("/logo.jpg"); background-repeat: no-repeat; background-position: right -28px bottom -42px; background-size: auto, 210px; }
+.practice-2 { grid-column: span 5; min-height: 265px; background-image: linear-gradient(90deg, rgba(238, 241, 234, .42), rgba(238, 241, 234, .8)), url("/logo.jpg"); background-repeat: no-repeat; background-position: right -10px bottom -8px; background-size: auto, 210px; }
 .practice-3 { grid-column: span 4; background: var(--amber-pale); }
 .practice-4 { grid-column: span 4; }
 .practice-5 { grid-column: span 4; background: #d8e4d9; }
