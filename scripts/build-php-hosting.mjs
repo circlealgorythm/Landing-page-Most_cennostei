@@ -11,7 +11,7 @@ const rootTemplate = path.join(root, "php-hosting", "template-root");
 const workerModule = pathToFileURL(path.join(root, "dist", "server", "index.js")).href;
 const { default: worker } = await import(`${workerModule}?php-export=${Date.now()}`);
 
-const sharedStyles = `\n<link rel="stylesheet" href="/assets/php-hosting.css">\n<script defer src="/assets/php-form.js"></script>`;
+const sharedStyles = `\n<link rel="stylesheet" href="/assets/php-hosting.css">\n<script defer src="/assets/php-form.js?v=20260806-vk"></script>`;
 const fontStyles = `\n<style data-php-fonts>@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Golos+Text:wght@400;500;600;700&display=swap'); :root{--font-cormorant:'Cormorant Garamond',Georgia,serif;--font-golos:'Golos Text',Arial,sans-serif}</style>`;
 
 async function render(route) {
