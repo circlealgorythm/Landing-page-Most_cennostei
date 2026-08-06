@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Onest } from "next/font/google";
+import { Cormorant_Garamond, Golos_Text } from "next/font/google";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -10,8 +10,8 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
-const onest = Onest({
-  variable: "--font-onest",
+const golos = Golos_Text({
+  variable: "--font-golos",
   subsets: ["cyrillic", "latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
@@ -53,7 +53,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ru">
-      <body className={`${cormorant.variable} ${onest.variable}`}>{children}</body>
+      <body className={`${cormorant.variable} ${golos.variable}`}>{children}</body>
     </html>
   );
 }

@@ -96,10 +96,10 @@ export default function Home() {
       <section className="hero-statement" aria-label="Принципы программы">
         <p>Три дня для тех, кто устал искать безопасность, любовь и самоценность только в деньгах, отношениях, признании и контроле. <span className="statement-question">Как сделать так, чтобы достижение целей не истощало, а происходило в синхроничности с миром?</span></p>
         <div className="principle-list">
-          <span>Камерная группа</span>
-          <span>Бережное пространство</span>
-          <span>Практика вместо обещаний</span>
-          <span>Ведический коучинг</span>
+          <span className="principle principle-1">Камерная группа</span>
+          <span className="principle principle-2">Бережное пространство</span>
+          <span className="principle principle-3">Практика вместо обещаний</span>
+          <span className="principle principle-4">Ведический коучинг</span>
         </div>
       </section>
 
@@ -113,7 +113,7 @@ export default function Home() {
           </div>
         </div>
         <div className="signal-grid">
-          {signals.map(([lead, detail]) => <article key={lead}><p><strong>{lead}</strong><span>{detail}</span></p></article>)}
+          {signals.map(([lead, detail], index) => <article className={`signal signal-${index + 1}`} key={lead}><p><strong>{lead}</strong><span>{detail}</span></p></article>)}
         </div>
       </section>
 
@@ -123,7 +123,7 @@ export default function Home() {
           <p>Не отказаться от желаний, а перестать делать внешний результат единственным источником жизни.</p>
         </div>
         <div className="outcome-grid">
-          {outcomes.map(([title, text]) => <article key={title}><h3>{title}</h3><p>{text}</p></article>)}
+          {outcomes.map(([title, text], index) => <article className={`outcome outcome-${index + 1}`} key={title}><h3>{title}</h3><p>{text}</p></article>)}
         </div>
       </section>
 
