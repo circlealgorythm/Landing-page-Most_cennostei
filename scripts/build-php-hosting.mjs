@@ -59,6 +59,27 @@ const productionFormScript = `(() => {
   form.addEventListener('submit', async (event) => { event.preventDefault(); const data = Object.fromEntries(new FormData(form)); const phoneDigits = String(data.phone).replace(/\\D/g, ''); const message = String(data.name).trim().length < 2 ? 'Укажите имя — не менее 2 символов.' : phoneDigits.length < 10 || phoneDigits.length > 15 ? 'Укажите телефон в международном формате.' : !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(String(data.email).trim()) ? 'Проверьте адрес электронной почты.' : ''; if (message) { error.textContent = message; error.hidden = false; return; } error.hidden = true; const submit = form.querySelector('button[type=submit]'); submit.disabled = true; submit.textContent = 'Отправляем…'; try { const response = await fetch('/api/application/', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(data) }); if (!response.ok) throw new Error(); location.assign('/posle-zayavki/'); } catch { error.textContent = 'Заявку пока не удалось отправить. Попробуйте ещё раз или напишите нам на aisukam-info@yandex.ru.'; error.hidden = false; submit.disabled = false; submit.innerHTML = 'Отправить заявку <span class="arrow-icon" aria-hidden="true"></span>'; } });
 })();`;
 
+const afterApplicationScript = `(() => {
+  if (!/^\\/posle-zayavki\\/?$/.test(location.pathname)) return;
+  const prefix = 'most_tsennostey_telegram_url=';
+  const cookie = document.cookie.split('; ').find((item) => item.startsWith(prefix));
+  if (!cookie) return;
+  document.cookie = 'most_tsennostey_telegram_url=; Max-Age=0; path=/; Secure; SameSite=Lax';
+  let telegramUrl = '';
+  try { telegramUrl = decodeURIComponent(cookie.slice(prefix.length)); } catch { return; }
+  try {
+    const parsed = new URL(telegramUrl);
+    if (parsed.protocol !== 'https:' || parsed.hostname !== 't.me') return;
+  } catch { return; }
+  const option = document.querySelector('.bot-options .bot-option');
+  if (!(option instanceof HTMLElement)) return;
+  const link = document.createElement('a');
+  link.className = option.className;
+  link.href = telegramUrl;
+  link.innerHTML = '<span class="bot-kind">Telegram</span><strong>Открыть Telegram-бота</strong><p>Нажмите «Начать», чтобы получить материалы.</p>';
+  option.replaceWith(link);
+})();`;
+
 const phpStyles = `.dialog-backdrop[hidden]{display:none}.dialog-backdrop{position:fixed!important;z-index:100;inset:0;padding:24px;display:grid;place-items:center;background:rgba(6,24,17,.64);backdrop-filter:blur(8px)}.application-dialog{width:min(100%,580px);max-height:min(800px,calc(100dvh - 48px));padding:clamp(30px,5vw,50px);overflow-y:auto;position:relative;color:var(--deep);background:var(--surface);border:1px solid rgba(232,198,119,.52);border-radius:20px;box-shadow:0 32px 100px rgba(0,0,0,.3)}.application-dialog h2{margin:9px 0 0;font-size:clamp(46px,8vw,66px)}.dialog-close{width:38px;height:38px;display:grid;place-items:center;position:absolute;top:17px;right:17px;color:var(--deep);background:transparent;border:1px solid var(--line-strong);border-radius:50%;cursor:pointer;font-size:28px;line-height:1}.dialog-lead{max-width:430px;margin:20px 0 28px;color:var(--muted);font-size:15px;line-height:1.65}.dialog-form,.field{display:grid;gap:17px}.field{gap:7px}.field label{color:var(--deep);font-size:13px;font-weight:700}.field input{width:100%;min-height:52px;padding:13px 15px;color:var(--deep);background:var(--white);border:1px solid var(--line-strong);border-radius:9px;font:inherit;font-size:16px}.field input:focus{outline:2px solid var(--amber);outline-offset:2px}.form-error{margin:0;padding:10px 12px;color:#9d3d2e;background:#f7e4df;border-radius:8px;font-size:12px}.form-submit{width:100%;margin-top:4px;cursor:pointer}.form-submit:disabled{opacity:.68;cursor:wait}.form-consent{margin:0;color:#6b786f;font-size:11px;line-height:1.5}@media(max-width:720px){.dialog-backdrop{padding:12px;align-items:end}.application-dialog{max-height:calc(100dvh - 24px);padding:32px 22px 25px;border-radius:16px}.application-dialog h2{font-size:49px}}`;
 const phpMotionStyles = `.dialog-backdrop{opacity:0;pointer-events:none;backdrop-filter:blur(0);transition:opacity 300ms var(--ease-out),backdrop-filter 300ms var(--ease-out)}.dialog-backdrop.is-open{opacity:1;pointer-events:auto;backdrop-filter:blur(8px)}.application-dialog{opacity:0;transform:translateY(18px) scale(.975);transition:opacity 260ms var(--ease-out),transform 320ms var(--ease-out)}.dialog-backdrop.is-open .application-dialog{opacity:1;transform:translateY(0) scale(1)}`;
 
@@ -72,7 +93,7 @@ await writeFile(path.join(output, 'posle-zayavki', 'index.html'), await render('
 await mkdir(path.join(output, 'zapis'), { recursive: true });
 await writeFile(path.join(output, 'zapis', 'index.html'), await render('/zapis'));
 await mkdir(path.join(output, 'assets'), { recursive: true });
-await writeFile(path.join(output, 'assets', 'php-form.js'), productionFormScript);
+await writeFile(path.join(output, 'assets', 'php-form.js'), productionFormScript + afterApplicationScript);
 await writeFile(path.join(output, 'assets', 'php-hosting.css'), phpStyles + phpMotionStyles);
 
 await rm(flatOutput, { recursive: true, force: true });

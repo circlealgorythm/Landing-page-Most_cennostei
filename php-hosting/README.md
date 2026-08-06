@@ -13,8 +13,7 @@ node scripts/build-php-hosting.mjs
 
 ## Установка на хостинг
 
-1. В папке `php-hosting` выполните `composer install --no-dev --optimize-autoloader`.
-2. Скопируйте `config.example.php` в `config.php` и укажите пароль приложения Яндекс Почты.
-3. Если панель позволяет, назначьте `php-hosting/public` корнем сайта. Файлы `config.php`, `vendor` и `public` должны лежать рядом; публичной должна быть только папка `public`.
+1. Скопируйте `config.example.php` в `config.php` и укажите общий токен FunnelHub.
+2. Если панель позволяет, назначьте `php-hosting/public` корнем сайта. Файл `config.php` должен лежать вне публичной папки.
 
-Если панель хостинга не позволяет назначить `public` корнем сайта, используйте пакет `php-hosting/deploy-root`: загрузите его содержимое в корень поддомена, выполните `composer install` там же и скопируйте `config.example.php` в `config.php`. Файл конфигурации и папка `vendor` закрыты от веб-доступа правилами Apache.
+Если панель хостинга не позволяет назначить `public` корнем сайта, используйте пакет `php-hosting/deploy-root`: загрузите его содержимое в корень поддомена и скопируйте `config.example.php` в `config.php`. Файл конфигурации закрыт от веб-доступа правилами Apache.

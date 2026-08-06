@@ -2,9 +2,6 @@
 
 declare(strict_types=1);
 
-use PHPMailer\PHPMailer\Exception;
-use PHPMailer\PHPMailer\PHPMailer;
-
 header('Content-Type: application/json; charset=utf-8');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -19,17 +16,15 @@ if (!is_file($root . '/config.php')) {
     $root = dirname(__DIR__, 2);
 }
 $configPath = $root . '/config.php';
-$autoloadPath = $root . '/vendor/autoload.php';
 
-if (!is_file($configPath) || !is_file($autoloadPath)) {
+if (!is_file($configPath)) {
     http_response_code(503);
-    echo json_encode(['error' => 'Mail service is not configured']);
+    echo json_encode(['error' => 'Application service is not configured']);
     exit;
 }
 
-/** @var array{smtp_host:string,smtp_port:int,smtp_login:string,smtp_app_password:string,recipient_email:string,site_name:string} $config */
+/** @var array{funnelhub_application_url:string,funnelhub_application_token:string} $config */
 $config = require $configPath;
-require $autoloadPath;
 
 $payload = json_decode((string) file_get_contents('php://input'), true);
 if (!is_array($payload)) {
@@ -71,34 +66,28 @@ try {
         CURLOPT_CONNECTTIMEOUT => 5,
         CURLOPT_TIMEOUT => 10,
     ]);
-    curl_exec($request);
+    $funnelhubBody = curl_exec($request);
     $funnelhubStatus = (int) curl_getinfo($request, CURLINFO_RESPONSE_CODE);
     curl_close($request);
-    if ($funnelhubStatus < 200 || $funnelhubStatus >= 300) {
+    if ($funnelhubBody === false || $funnelhubStatus < 200 || $funnelhubStatus >= 300) {
         throw new RuntimeException('Inbox application request failed with HTTP status ' . $funnelhubStatus);
     }
+    $funnelhubPayload = json_decode($funnelhubBody, true);
+    $telegramUrl = is_array($funnelhubPayload) ? (string) ($funnelhubPayload['telegram_url'] ?? '') : '';
+    $telegramParts = parse_url($telegramUrl);
+    if (($telegramParts['scheme'] ?? '') !== 'https' || ($telegramParts['host'] ?? '') !== 't.me') {
+        throw new RuntimeException('Inbox application response has no safe Telegram link');
+    }
 
-    $mail = new PHPMailer(true);
-    $mail->isSMTP();
-    $mail->Host = $config['smtp_host'];
-    $mail->Port = $config['smtp_port'];
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-    $mail->SMTPAuth = true;
-    $mail->Username = $config['smtp_login'];
-    $mail->Password = $config['smtp_app_password'];
-    $mail->CharSet = PHPMailer::CHARSET_UTF8;
-    $mail->setFrom($config['smtp_login'], $config['site_name']);
-    $mail->addAddress($config['recipient_email']);
-    $mail->addReplyTo($email, $name);
-    $mail->Subject = '[Мост ценностей] Новая заявка';
-    $mail->addCustomHeader('X-Lead-Source', 'most-tsennostey');
-    $mail->addCustomHeader('X-Lead-Form', 'application');
-    $mail->isHTML(false);
-    $mail->Body = "Имя: {$name}\nТелефон: {$phone}\nEmail: {$email}";
-    $mail->send();
+    setcookie('most_tsennostey_telegram_url', $telegramUrl, [
+        'path' => '/',
+        'secure' => true,
+        'httponly' => false,
+        'samesite' => 'Lax',
+    ]);
     echo json_encode(['ok' => true]);
-} catch (Exception $exception) {
-    error_log('Application mail error: ' . $exception->getMessage());
+} catch (Throwable $exception) {
+    error_log('Application request error: ' . $exception->getMessage());
     http_response_code(502);
     echo json_encode(['error' => 'Unable to send application']);
 }
