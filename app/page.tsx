@@ -74,9 +74,10 @@ export default function Home() {
           <h1>Мост <em>ценностей</em></h1>
           <p className="hero-subtitle">От зависимости от результата к свободе действовать и осознанности в принятии решений.</p>
           <div className="hero-actions">
-            <div className="application-action"><a className="button primary" href={APPLICATION_ANCHOR}>Оставить заявку <ArrowIcon /></a><ApplicationNote /></div>
+            <a className="button primary" href={APPLICATION_ANCHOR}>Оставить заявку <ArrowIcon /></a>
             <a className="button quiet" href="#program">Посмотреть программу</a>
           </div>
+          <ApplicationNote />
           <div className="hero-details" aria-label="Ключевые детали программы">
             <div><b>3-5</b><span>сентября 2026</span></div>
             <div><b>Москва</b><span>адрес участникам</span></div>

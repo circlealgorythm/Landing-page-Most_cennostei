@@ -85,7 +85,6 @@ h1 em, h2 em { color: var(--amber); font-weight: 500; font-style: italic; line-h
 h1 em { display: block; margin-left: clamp(28px, 7vw, 110px); padding-bottom: .06em; }
 .hero-subtitle { max-width: 680px; margin: 31px 0 0; color: var(--deep); font-family: var(--font-cormorant), Georgia, serif; font-size: clamp(22px, 2.05vw, 30px); line-height: 1.12; letter-spacing: -.018em; }
 .hero-actions { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 11px; margin-top: 31px; }
-.application-action { display: flex; flex-direction: column; align-items: flex-start; }
 .application-note { max-width: 430px; margin: 15px 0 0; padding: 17px 19px 18px; color: #52645a; background: rgba(255, 255, 255, .68); border: 1px solid rgba(197, 138, 34, .25); border-left: 3px solid var(--amber); border-radius: 13px; box-shadow: 0 12px 28px rgba(19, 55, 41, .08); font-size: 14px; line-height: 1.52; }
 .application-note strong { display: block; color: var(--deep); font-family: var(--font-cormorant), Georgia, serif; font-size: 22px; font-weight: 600; line-height: 1.1; }
 .application-note-lead { margin: 0; color: var(--deep); font-size: 16px; line-height: 1.5; }
@@ -296,7 +295,6 @@ footer > a:last-child { display: inline-flex; align-items: center; gap: 10px; co
   h1 em { margin-left: 14vw; }
   .hero-subtitle { margin-top: 21px; font-size: 24px; }
   .hero-actions { margin-top: 23px; }
-  .hero-actions .application-action { width: 100%; }
   .hero-actions .button { width: 100%; }
   .hero-actions .quiet { display: none; }
   .hero-details { margin-top: 29px; }
