@@ -24,7 +24,7 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 76px; scrollbar-color: var(--sage) var(--surface); }
-body { margin: 0; color: var(--ink); background: var(--surface); font-family: var(--font-manrope), sans-serif; line-height: 1.55; overflow-x: clip; }
+body { margin: 0; color: var(--ink); background: var(--surface); font-family: var(--font-onest), Arial, sans-serif; line-height: 1.55; overflow-x: clip; }
 body::-webkit-scrollbar { width: 10px; }
 body::-webkit-scrollbar-track { background: var(--surface); }
 body::-webkit-scrollbar-thumb { background: var(--sage); border: 3px solid var(--surface); border-radius: 999px; }
