@@ -98,6 +98,15 @@ actions tied to the current ChatGPT user. Leave public content anonymous.
 - `npm run validate:artifact`: recheck an existing artifact's manifest and ESM `default.fetch` export
 - `npm run db:generate`: generate Drizzle migrations after schema changes
 
+## Inbox applications
+
+To send submitted applications to FunnelHub Inbox, configure these Worker secrets:
+
+- `FUNNELHUB_APPLICATION_URL`: `https://bot.aisukam.ru/webhooks/landing-applications/most-tsennostey`
+- `FUNNELHUB_APPLICATION_TOKEN`: the same value as FunnelHub's `MOST_TSENNOSTEY_INGEST_TOKEN`
+
+Keep these values secret. The existing email notification remains enabled as an additional alert after FunnelHub accepts the application.
+
 Use build and validation commands for targeted diagnosis after a remote failure, not as part of the normal checkpoint path.
 
 The timeout defaults can be overridden for a controlled canary with `SITES_INSTALL_TIMEOUT`, `SITES_INSTALL_KILL_AFTER`, `SITES_BUILD_TIMEOUT`, and `SITES_BUILD_KILL_AFTER`. A timeout fails the command; the helpers never retry an unchanged install or build.

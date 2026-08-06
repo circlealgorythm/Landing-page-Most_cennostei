@@ -14,6 +14,8 @@ interface Env {
   };
   YANDEX_SMTP_LOGIN?: string;
   YANDEX_SMTP_APP_PASSWORD?: string;
+  FUNNELHUB_APPLICATION_URL?: string;
+  FUNNELHUB_APPLICATION_TOKEN?: string;
 }
 
 interface ExecutionContext {
@@ -72,11 +74,27 @@ async function handleApplication(request: Request, env: Env): Promise<Response> 
   }
 
   try {
+    await sendApplicationToInbox(env, name, phone, email);
     await sendMail(env.YANDEX_SMTP_LOGIN, env.YANDEX_SMTP_APP_PASSWORD, name, phone, email);
     return Response.json({ ok: true });
   } catch {
     return Response.json({ error: "Unable to send application" }, { status: 502 });
   }
+}
+
+async function sendApplicationToInbox(env: Env, name: string, phone: string, email: string) {
+  if (!env.FUNNELHUB_APPLICATION_URL || !env.FUNNELHUB_APPLICATION_TOKEN) {
+    throw new Error("Inbox application integration is not configured");
+  }
+  const response = await fetch(env.FUNNELHUB_APPLICATION_URL, {
+    method: "POST",
+    headers: {
+      authorization: `Bearer ${env.FUNNELHUB_APPLICATION_TOKEN}`,
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({ name, phone, email }),
+  });
+  if (!response.ok) throw new Error(`Inbox application integration failed: ${response.status}`);
 }
 
 async function sendMail(login: string, password: string, name: string, phone: string, email: string) {
