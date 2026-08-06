@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ApplicationDialog } from "./application-dialog";
+import { AisuBiographyAccordion } from "./aisu-biography-accordion";
 
-const BOT_URL = "https://t.me/Aisu_Kam_bot?start=vnutrennyaya_opora";
 const APPLICATION_NOTE = "Оставьте заявку, и мы свяжемся с вами, обсудим, подойдёт ли вам этот тренинг, и расскажем его детали. Для дальнейшей коммуникации понадобится подписаться на чат-бот в Telegram или в VK.";
 const APPLICATION_BENEFITS = [
   "Подписаться на чат-бот и узнать подробнее о программе.",
@@ -84,11 +84,8 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="hero-art" aria-label="Символ программы, золотой лотос">
-          <div className="orbit orbit-outer" aria-hidden="true" />
-          <div className="orbit orbit-inner" aria-hidden="true" />
-          <div className="logo-halo" aria-hidden="true" />
-          <Image className="hero-logo" src="/logo.jpg" width={512} height={512} alt="Золотой лотос, символ программы «Мост ценностей»" priority unoptimized />
+        <div className="hero-art" aria-label="Портрет Айсу Кам">
+          <Image className="hero-portrait" src="/hero-portrait-aisu.jpg" width={771} height={1080} alt="Айсу Кам" priority unoptimized />
         </div>
       </section>
 
@@ -175,8 +172,8 @@ export default function Home() {
       </section>
 
       <section className="facilitator section">
-        <div className="facilitator-symbol"><Image src="/logo.jpg" width={220} height={220} alt="" unoptimized /></div>
-        <div><h2>Ведущая: Айсу Кам</h2><p>Проводник в духовных практиках, работе с внутренним состоянием, ценностями и жизненными сценариями. Айсу Кам — родовой шаман, экстрасенс, последовательница древних восточных традиций Гаудия-вайшнавизм и Шри Видья. Она создаёт пространство, где можно честно увидеть свой способ действовать: без давления, «волшебной кнопки» и обесценивания собственного пути.</p><a className="text-link" href={BOT_URL} target="_blank" rel="noreferrer">Написать Айсу <ArrowIcon /></a></div>
+        <div className="facilitator-portrait"><Image src="/facilitator-aisu.jpg" width={1410} height={1880} alt="Портрет Айсу Кам" unoptimized /></div>
+        <div><h2>Ведущая: Айсу Кам</h2><p>Проводник в духовных практиках, работе с внутренним состоянием, ценностями и жизненными сценариями. Айсу Кам — родовой шаман, экстрасенс, последовательница древних восточных традиций Гаудия-вайшнавизм и Шри Видья. Она создаёт пространство, где можно честно увидеть свой способ действовать: без давления, «волшебной кнопки» и обесценивания собственного пути.</p><ApplicationDialog className="text-link">Написать Айсу <ArrowIcon /></ApplicationDialog><AisuBiographyAccordion /></div>
       </section>
 
       <section className="questions section" id="questions">

@@ -74,15 +74,15 @@ async function handleApplication(request: Request, env: Env): Promise<Response> 
   }
 
   try {
-    await sendApplicationToInbox(env, name, phone, email);
-    await sendMail(env.YANDEX_SMTP_LOGIN, env.YANDEX_SMTP_APP_PASSWORD, name, phone, email);
-    return Response.json({ ok: true });
+    const inboxApplication = await sendApplicationToInbox(env, name, phone, email);
+    await sendMail(env.YANDEX_SMTP_LOGIN, env.YANDEX_SMTP_APP_PASSWORD, name, phone, email, "заявка с сайта");
+    return Response.json({ ok: true, telegramUrl: inboxApplication.telegramUrl });
   } catch {
     return Response.json({ error: "Unable to send application" }, { status: 502 });
   }
 }
 
-async function sendApplicationToInbox(env: Env, name: string, phone: string, email: string) {
+async function sendApplicationToInbox(env: Env, name: string, phone: string, email: string): Promise<{ telegramUrl: string }> {
   if (!env.FUNNELHUB_APPLICATION_URL || !env.FUNNELHUB_APPLICATION_TOKEN) {
     throw new Error("Inbox application integration is not configured");
   }
@@ -95,9 +95,19 @@ async function sendApplicationToInbox(env: Env, name: string, phone: string, ema
     body: JSON.stringify({ name, phone, email }),
   });
   if (!response.ok) throw new Error(`Inbox application integration failed: ${response.status}`);
+  const payload: unknown = await response.json();
+  if (!payload || typeof payload !== "object" || typeof (payload as { telegram_url?: unknown }).telegram_url !== "string") {
+    throw new Error("Inbox application response has no Telegram link");
+  }
+  const telegramUrl = (payload as { telegram_url: string }).telegram_url;
+  const parsedUrl = new URL(telegramUrl);
+  if (parsedUrl.protocol !== "https:" || parsedUrl.hostname !== "t.me") {
+    throw new Error("Inbox application response has an unsafe Telegram link");
+  }
+  return { telegramUrl };
 }
 
-async function sendMail(login: string, password: string, name: string, phone: string, email: string) {
+async function sendMail(login: string, password: string, name: string, phone: string, email: string, tag: string) {
   const { connect } = await import("cloudflare:sockets");
   const socket = connect({ hostname: "smtp.yandex.ru", port: 465, secureTransport: "on" });
   const reader = socket.readable.getReader();
@@ -119,8 +129,8 @@ async function sendMail(login: string, password: string, name: string, phone: st
   const command = async (value: string) => { await writer.write(encoder.encode(`${value}\r\n`)); await readResponse(); };
   const base64 = (value: string) => btoa(unescape(encodeURIComponent(value)));
   const clean = (value: string) => value.replace(/[\r\n]/g, " ");
-  const subject = "[Мост ценностей] Новая заявка";
-  const body = `Имя: ${clean(name)}\r\nТелефон: ${clean(phone)}\r\nEmail: ${clean(email)}`;
+  const subject = `[Мост ценностей] Присвоен тег: ${tag}`;
+  const body = `Тег: ${clean(tag)}\r\nИмя: ${clean(name)}\r\nТелефон: ${clean(phone)}\r\nEmail: ${clean(email)}`;
 
   try {
     await readResponse();

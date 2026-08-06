@@ -17,21 +17,35 @@ function validate(values: FormValues): FormErrors {
 }
 
 export function ApplicationDialog({ className, children, title }: { className: string; children: ReactNode; title?: string }) {
+  const [isRendered, setIsRendered] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState<FormErrors>({});
   const [serverError, setServerError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const closeButton = useRef<HTMLButtonElement>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (!isOpen) return;
     closeButton.current?.focus();
-    const onKeyDown = (event: KeyboardEvent) => { if (event.key === "Escape") setIsOpen(false); };
     document.body.classList.add("dialog-open");
-    document.addEventListener("keydown", onKeyDown);
-    return () => { document.body.classList.remove("dialog-open"); document.removeEventListener("keydown", onKeyDown); };
+    return () => { document.body.classList.remove("dialog-open"); };
   }, [isOpen]);
+
+  useEffect(() => () => { if (closeTimer.current) clearTimeout(closeTimer.current); }, []);
+
+  function openDialog() {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setIsRendered(true);
+    requestAnimationFrame(() => setIsOpen(true));
+  }
+
+  function closeDialog() {
+    setIsOpen(false);
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => setIsRendered(false), 320);
+  }
 
   const update = (field: keyof FormValues, value: string) => {
     setValues((current) => ({ ...current, [field]: value }));
@@ -48,6 +62,12 @@ export function ApplicationDialog({ className, children, title }: { className: s
     try {
       const response = await fetch("/api/application", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(values) });
       if (!response.ok) throw new Error();
+      const payload: unknown = await response.json();
+      const telegramUrl = payload && typeof payload === "object" ? (payload as { telegramUrl?: unknown }).telegramUrl : null;
+      if (typeof telegramUrl !== "string") throw new Error();
+      const parsedUrl = new URL(telegramUrl);
+      if (parsedUrl.protocol !== "https:" || parsedUrl.hostname !== "t.me") throw new Error();
+      window.sessionStorage.setItem("most-tsennostey-telegram-url", telegramUrl);
       window.location.assign("/posle-zayavki");
     } catch {
       setServerError("Заявку пока не удалось отправить. Попробуйте ещё раз или напишите нам на aisukam-info@yandex.ru.");
@@ -56,10 +76,10 @@ export function ApplicationDialog({ className, children, title }: { className: s
   }
 
   return <>
-    <button className={`${className} application-trigger`} type="button" onClick={() => setIsOpen(true)} title={title}>{children}</button>
-    {isOpen && createPortal(<div className="dialog-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setIsOpen(false); }}>
+    <button className={`${className} application-trigger`} type="button" onClick={openDialog} title={title}>{children}</button>
+    {isRendered && createPortal(<div className={`dialog-backdrop${isOpen ? " is-open" : ""}`} role="presentation" aria-hidden={!isOpen}>
       <section className="application-dialog" role="dialog" aria-modal="true" aria-labelledby="application-dialog-title">
-        <button className="dialog-close" type="button" onClick={() => setIsOpen(false)} ref={closeButton} aria-label="Закрыть форму">×</button>
+        <button className="dialog-close" type="button" onClick={closeDialog} ref={closeButton} aria-label="Закрыть форму">×</button>
         <p className="eyebrow">Мост ценностей · Москва · 3–5 сентября 2026</p>
         <h2 id="application-dialog-title">Оставьте <em>заявку.</em></h2>
         <p className="dialog-lead">Мы свяжемся с вами, спокойно обсудим, подходит ли вам этот тренинг, и расскажем детали.</p>

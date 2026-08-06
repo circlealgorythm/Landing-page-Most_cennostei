@@ -44,6 +44,12 @@ export default function SignupPage() {
         body: JSON.stringify(values),
       });
       if (!response.ok) throw new Error("Не удалось отправить заявку.");
+      const payload: unknown = await response.json();
+      const telegramUrl = payload && typeof payload === "object" ? (payload as { telegramUrl?: unknown }).telegramUrl : null;
+      if (typeof telegramUrl !== "string") throw new Error("Не удалось получить ссылку на Telegram.");
+      const parsedUrl = new URL(telegramUrl);
+      if (parsedUrl.protocol !== "https:" || parsedUrl.hostname !== "t.me") throw new Error("Некорректная ссылка на Telegram.");
+      window.sessionStorage.setItem("most-tsennostey-telegram-url", telegramUrl);
       window.location.assign("/posle-zayavki");
     } catch {
       setServerError("Заявку пока не удалось отправить. Попробуйте ещё раз или напишите нам на aisukam-info@yandex.ru.");

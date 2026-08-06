@@ -1,0 +1,11 @@
+{
+  "name": "aisukam/most-tsennostey",
+  "description": "PHP hosting package for the Most Tsennostey landing page",
+  "require": {
+    "php": "^8.1",
+    "phpmailer/phpmailer": "^6.10"
+  },
+  "config": {
+    "optimize-autoloader": true
+  }
+}

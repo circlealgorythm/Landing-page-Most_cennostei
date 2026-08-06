@@ -1,0 +1,13 @@
+Options -Indexes
+
+<FilesMatch "^(config(?:\.example)?\.php|composer\.(?:json|lock)|README\.md|\.gitignore)$">
+  Require all denied
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^posle-zayavki/?$ /posle-zayavki/index.html [L]
+  RewriteRule ^zapis/?$ /zapis/index.html [L]
+</IfModule>
