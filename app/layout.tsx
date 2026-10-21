@@ -18,7 +18,10 @@ const golos = Golos_Text({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://vnutrennyaya-opora.circlealgorythm.chatgpt.site"),
+  metadataBase: new URL("https://most.aisukam.ru"),
+  alternates: {
+    canonical: "/",
+  },
   title: "Мост ценностей, офлайн-программа Айсу Кам",
   description: "Трёхдневная офлайн-программа в Москве: от зависимости от результата к свободе действовать и осознанности в принятии решений. 3-5 сентября 2026.",
   icons: {
@@ -50,9 +53,45 @@ export const viewport: Viewport = {
   themeColor: "#0d281f",
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "EducationEvent",
+  "name": "Мост ценностей — офлайн-программа Айсу Кам",
+  "description": "Трёхдневная офлайн-программа в Москве: от зависимости от результата к свободе действовать и осознанности в принятии решений. 3-5 сентября 2026.",
+  "startDate": "2026-09-03",
+  "endDate": "2026-09-05",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "location": {
+    "@type": "Place",
+    "name": "Пространство проведения программы",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Москва",
+      "addressCountry": "RU",
+    },
+  },
+  "organizer": {
+    "@type": "Person",
+    "name": "Айсу Кам",
+    "url": "https://aisukam.ru",
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": "https://most.aisukam.ru",
+    "availability": "https://schema.org/LimitedAvailability",
+  },
+};
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ru">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className={`${cormorant.variable} ${golos.variable}`}>{children}</body>
     </html>
   );

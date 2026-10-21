@@ -91,7 +91,7 @@ export default function SignupPage() {
           </div>
           {serverError && <p className="form-error" role="alert">{serverError}</p>}
           <button className="button primary form-submit" type="submit" disabled={isSubmitting}>{isSubmitting ? "Отправляем…" : "Отправить заявку"}<span className="arrow-icon" aria-hidden="true" /></button>
-          <p className="form-consent">Нажимая «Отправить заявку», вы соглашаетесь на обработку данных для связи по вашей заявке.</p>
+          <p className="form-consent">Оставляя заявку, вы соглашаетесь на обработку данных в соответствии с политикой конфиденциальности, а также с договором офертой на оказание услуг</p>
         </form>
       </section>
     </main>

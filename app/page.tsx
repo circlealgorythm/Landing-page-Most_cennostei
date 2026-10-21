@@ -30,7 +30,7 @@ const questions = [
   ["Это терапия?", "Нет. Это духовно-образовательная программа с коучинговыми вопросами, письменными практиками и групповой работой. Она не заменяет психотерапию, медицинскую помощь или лечение."],
   ["Нужно ли рассказывать личные истории группе?", "Нет. Участие добровольное: можно говорить кратко, выбрать письменный формат или пропустить любой вопрос. В круге не дают непрошеных советов и не обсуждают чужие истории за его пределами."],
   ["Подойдёт ли мне программа без знакомства с Ведической традицией?", "Да. Мы говорим о внутренней опоре, ценностях, желаниях и способе действия понятным языком. Духовную практику каждый участник соотносит со своей традицией и мерой открытости."],
-  ["Что будет 4 сентября?", "Это свободный день. По желанию можно вместе посетить праздник Джанмаштами в Вайшнавском храме. Если формат не откликается, день можно провести в своём ритме. Участие не является обязательной частью тренинга."],
+  ["Что будет 4 сентября?", "Это свободный день. По желанию можно вместе посетить праздник Джанмаштами в Вайшнавском храме. Джанмаштами — это день явления Верховной Личности Бога. Если формат не откликается, день можно провести в своём ритме. Участие не является обязательной частью тренинга."],
 ];
 
 const outcomes = [
@@ -44,8 +44,8 @@ const ArrowIcon = () => <span className="arrow-icon" aria-hidden="true" />;
 const ApplicationNote = () => (
   <div className="application-note">
     <p className="application-note-lead">Оставьте заявку, и мы свяжемся с вами, обсудим, подойдёт ли вам этот тренинг, и расскажем его детали.</p>
+    <p className="application-note-free-materials">Заявка ни к чему вас не обязывает, но вы сможете получить много ценного бесплатного материала.</p>
     <p className="application-note-highlight">Для дальнейшей коммуникации <strong>понадобится подписаться на чат-бот в Telegram или в VK.</strong></p>
-    <p className="application-note-form">Все кнопки «Оставить заявку» в итоге ведут на единую форму записи.</p>
     <strong className="application-note-title">После заявки вы также сможете:</strong>
     <ul>{APPLICATION_BENEFITS.map((benefit) => <li key={benefit}>{benefit}</li>)}</ul>
   </div>
@@ -56,7 +56,7 @@ export default function Home() {
     <main>
       <header className="topbar">
         <a className="brand" href="#start" aria-label="Мост ценностей, к началу страницы">
-          <Image className="brand-logo" src="/logo.jpg" width={44} height={44} alt="" priority unoptimized />
+          <Image className="brand-logo" src="/logo.jpg" width={44} height={44} alt="" unoptimized />
           <span className="brand-copy"><b>Айсу Кам</b><small>путь внутренней опоры</small></span>
         </a>
         <nav aria-label="Навигация по странице">
@@ -71,12 +71,12 @@ export default function Home() {
       <section className="hero" id="start">
         <div className="hero-copy">
           <h1>Мост <em>ценностей</em></h1>
-          <p className="hero-subtitle">От зависимости от результата к свободе действовать и осознанности в принятии решений.</p>
+          <p className="hero-subtitle">От&nbsp;зависимости от&nbsp;результата к&nbsp;свободе действовать и&nbsp;осознанности в&nbsp;принятии решений.</p>
           <div className="hero-actions">
             <ApplicationDialog className="button primary">Оставить заявку <ArrowIcon /></ApplicationDialog>
             <a className="button quiet" href="#program">Посмотреть программу</a>
           </div>
-          <ApplicationNote />
+          <p className="hero-reassurance">Без&nbsp;давления: свяжемся, ответим на&nbsp;вопросы и&nbsp;поможем понять, подходит&nbsp;ли вам программа.</p>
           <div className="hero-details" aria-label="Ключевые детали программы">
             <div><b>3-5</b><span>сентября 2026</span></div>
             <div><b>Москва</b><span>адрес участникам</span></div>
@@ -115,8 +115,8 @@ export default function Home() {
 
       <section className="outcomes section">
         <div className="outcome-intro">
-          <h2>Опора не итог. <em>Это способ быть в пути.</em></h2>
-          <p>Не отказаться от желаний, а перестать делать внешний результат единственным источником жизни.</p>
+          <h2>Опора не&nbsp;итог. <em>Это способ быть в&nbsp;пути.</em></h2>
+          <p>Не&nbsp;отказаться от&nbsp;желаний, а&nbsp;перестать делать внешний результат единственным источником жизни.</p>
         </div>
         <div className="outcome-grid">
           {outcomes.map(([title, text], index) => <article className={`outcome outcome-${index + 1}`} key={title}><h3>{title}</h3><p>{text}</p></article>)}
@@ -131,11 +131,11 @@ export default function Home() {
         <div className="days">
           <article className="day">
             <div className="day-number"><span>03</span><small>сентября</small></div>
-            <div className="day-content"><h3>Увидеть механизм своего сценария</h3><ul><li>Открывающий круг и настройка пространства<small>Результат: ясный запрос и безопасный общий ритм.</small></li><li>«Моя цепочка»: желание, импульс, действие и цена<small>Результат: заметный момент выбора до автоматической реакции.</small></li><li>Колесо восьми внутренних опор<small>Результат: карта того, на что уже можно опереться.</small></li><li>Галерея полярностей: проседание, пьедестал, середина во внутреннем ресурсе<small>Результат: разотождествление с дефицитной ролью и создание внутренней опоры.</small></li><li>Практика «5 зачем» и работа в парах<small>Результат: связь внешней цели с настоящей потребностью.</small></li><li>Йога-цигун и гвоздестояние, по желанию<small>Результат: опыт присутствия в теле и внимательного выбора.</small></li><li>Круг интеграции<small>Результат: один вывод, который можно унести в повседневность.</small></li></ul></div>
+            <div className="day-content"><h3>Увидеть механизм своего сценария</h3><ul><li>Открывающий круг и настройка пространства<small>Результат: ясный запрос и безопасный общий ритм.</small></li><li>«Моя цепочка»: желание, импульс, действие и цена<small>Результат: заметный момент выбора до автоматической реакции.</small></li><li>Колесо восьми внутренних опор<small>Результат: карта того, на что уже можно опереться.</small></li><li>Галерея полярностей: проседание, пьедестал, середина во внутреннем ресурсе<small>Результат: разотождествление с дефицитной ролью и создание внутренней опоры.</small></li><li>Практика «5 зачем» и работа в парах<small>Результат: связь внешней цели с настоящей потребностью.</small></li><li>Круг интеграции<small>Результат: один вывод, который можно унести в повседневность.</small></li></ul></div>
           </article>
           <article className="day rest">
             <div className="day-number"><span>04</span><small>сентября</small></div>
-            <div className="day-content"><h3>Джанмаштами: свободный день</h3><p>По желанию можно вместе посетить праздничную программу в Вайшнавском храме. Это не обязательная часть тренинга: день можно провести в тишине, погулять по Москве или выбрать свой ритм.</p><span className="optional">Только по желанию</span></div>
+            <div className="day-content"><h3>Джанмаштами: свободный день</h3><p>Джанмаштами — это день явления Верховной Личности Бога. По желанию можно вместе посетить праздничную программу в Вайшнавском храме. Это не обязательная часть тренинга: день можно провести в тишине, погулять по Москве или выбрать свой ритм.</p><span className="optional">Только по желанию</span></div>
           </article>
           <article className="day">
             <div className="day-number"><span>05</span><small>сентября</small></div>
@@ -155,7 +155,7 @@ export default function Home() {
       </section>
 
       <section className="shift section">
-        <div className="shift-head"><h2>Не получить любой ценой. <em>Действовать свободно.</em></h2></div>
+        <div className="shift-head"><h2>Не&nbsp;получить любой ценой. <em>Действовать свободно.</em></h2></div>
         <div className="shift-grid">
           <div className="before"><p className="shift-label">Когда опора только снаружи</p><ul><li>«Если этого не будет, со мной что-то не так»</li><li>Тревога, спешка, контроль и сравнение</li><li>Привязанность к чужому решению</li><li>Импульсивные действия и эмоциональные качели</li></ul></div>
           <div className="after"><p className="shift-label">Когда опора возвращается внутрь</p><ul><li>«Мне важна цель, но я не исчезаю без неё»</li><li>Ясность, уважение к себе и другому</li><li>Ответственность за свой процесс</li><li>Действие из ценности, а не из страха</li></ul></div>
@@ -166,7 +166,7 @@ export default function Home() {
         <div className="format-card">
           <h2>Камерная группа. <em>Бережная глубина.</em></h2>
           <div className="format-points"><p><b>8-12 участников</b><span>Место для личного внимания</span></p><p><b>Круги и пары</b><span>Без непрошеных советов</span></p><p><b>Личные беседы</b><span>Уточнение запроса и шага</span></p><p><b>21 день</b><span>Спокойная интеграция после</span></p></div>
-          <div className="application-action"><ApplicationDialog className="button primary">Оставить заявку <ArrowIcon /></ApplicationDialog><ApplicationNote /></div>
+          <div className="application-action"><ApplicationDialog className="button primary">Оставить заявку <ArrowIcon /></ApplicationDialog></div>
         </div>
         <aside className="safety-note"><div className="safety-mark">!</div><div><strong>Важно</strong><p>Участие добровольное. Не нужно рассказывать больше, чем вы готовы. Программа не заменяет медицинскую или психотерапевтическую помощь, не является религиозной деятельностью и не обещает конкретных результатов в деньгах, отношениях или здоровье.</p></div></aside>
       </section>
@@ -184,7 +184,7 @@ export default function Home() {
       <section className="final-cta" id="signup">
         <div className="final-orbit" aria-hidden="true" />
         <Image className="final-logo" src="/logo.jpg" width={240} height={240} alt="" unoptimized />
-        <div><h2>Услышать, на что вы действительно <em>можете опереться.</em></h2><p>Первый шаг — оставить заявку и спокойно обсудить, подходит ли вам этот тренинг.</p><div className="final-meta">Москва, 3-5 сентября 2026</div><div className="application-action"><ApplicationDialog className="button gold">Оставить заявку <ArrowIcon /></ApplicationDialog><ApplicationNote /></div></div>
+        <div><h2>Услышать, на&nbsp;что вы&nbsp;действительно <em>можете опереться.</em></h2><p>Первый шаг — оставить заявку и спокойно обсудить, подходит ли вам этот тренинг.</p><div className="final-meta">Москва, 3-5 сентября 2026</div><div className="application-action"><ApplicationDialog className="button gold">Оставить заявку <ArrowIcon /></ApplicationDialog><ApplicationNote /></div><p className="application-disclaimer">Материалы тренинга, сайта, диагностик и консультаций носят исключительно информационно-консультационный и духовно-практический характер, не являются медицинской, психотерапевтической или религиозной, проповеднической деятельностью, не предназначены для диагностики, лечения или профилактики заболеваний и не заменяют обращения к профильным специалистам.</p></div>
       </section>
 
       <footer className="site-footer">
@@ -196,7 +196,7 @@ export default function Home() {
           <a href="https://www.youtube.com/@shaman_aisu" target="_blank" rel="noreferrer" aria-label="YouTube"><Image src="https://cdn.simpleicons.org/youtube/F6D98E" width={17} height={17} alt="" unoptimized /></a>
           <a href="https://vkvideo.ru/@shamanaisu" target="_blank" rel="noreferrer" aria-label="VK Видео"><span className="vk-video-icon" aria-hidden="true"><i /></span></a>
         </nav>
-        <div className="footer-documents"><a href="https://shamanaisu.getcourse.ru/oferta" target="_blank" rel="noreferrer">Договор оферты</a><span aria-hidden="true">·</span><a href="https://shamanaisu.getcourse.ru/politica" target="_blank" rel="noreferrer">Политика обработки данных</a></div>
+        <div className="footer-documents"><a href="https://aisukam.ru" target="_blank" rel="noreferrer">Основной сайт</a><span aria-hidden="true">·</span><a href="https://school.aisukam.ru/oferta_most" target="_blank" rel="noreferrer">Договор оферты</a><span aria-hidden="true">·</span><a href="https://shamanaisu.getcourse.ru/politica" target="_blank" rel="noreferrer">Политика обработки данных</a></div>
       </footer>
 
       <ApplicationDialog className="mobile-cta" title={APPLICATION_NOTE}><span>Оставить заявку</span><ArrowIcon /></ApplicationDialog>
