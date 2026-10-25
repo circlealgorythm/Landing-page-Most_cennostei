@@ -44,3 +44,9 @@ next-env.d.ts
 *.tsbuildinfo
 desktop.ini
 *.zip
+
+
+# secrets and local config
+*.local
+config.php
+lead-config.php
