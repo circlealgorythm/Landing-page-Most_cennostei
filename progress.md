@@ -70,3 +70,5 @@
 - **2026-10-21 15:54** | feat(landing-most): audit phases 1-3 (hero, native dialog, cwv & schema.org)
 
 - **2026-10-26 02:17** | security(landing-most): update gitignore to prevent secret leaks
+
+- **2026-10-26 02:26** | security(landing-most): update package-lock via npm audit fix
