@@ -2,6 +2,7 @@
 
 > **Экосистема:** Школа AisuKam  
 > **Стек:** Next.js, React, TypeScript, Tailwind CSS  
+> **Инвариант нулевого шага (STD-020):** Перед взятием любой задачи агент ОБЯЗАН выполнить git pull --autostash --rebase origin <branch> (или python3 scripts/sync-ecosystem.py в корне). Запрещено менять код без предварительной синхронизации с GitHub!
 > **Сквозные стандарты школы:** Перед реализацией визуальных стандартов, сетевых протоколов и безопасности сверяться с [.harness/lessons.md](file:///./.harness/lessons.md).  
 > **Локальный журнал прогресса:** [progress.md](file:///./projects/landing-most/progress.md)
 
